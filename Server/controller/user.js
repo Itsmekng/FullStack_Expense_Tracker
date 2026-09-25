@@ -1,6 +1,7 @@
 const User = require("../models/user");
+const ApiError = require("../utils/ApiError.js");
 
-const addUser = async (req , res) => {
+const addUser = async (req , res , next) => {
 
     try{
         const {name , email , password} = req.body;
@@ -10,25 +11,17 @@ const addUser = async (req , res) => {
                 email: email
             }
         })
-        console.log(existingUser);
+
         if(existingUser[0]){
-            res.status(409).json({
-                error:"User is already Existed",
-                status:false
-            })
+            throw new ApiError(409,"User already exist");
         }
 
         await User.create({name,email,password});
         
-        res.status(201).json({
-            message:"User is created",
-            status:true
-        })
+        return res.success(null,"User is created",201);
+
     }catch(err){
-        res.status(500).json({
-            error:err.message,
-            status:false
-        })
+        next(err);
     }
 }
 

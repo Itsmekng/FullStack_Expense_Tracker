@@ -10,8 +10,8 @@ async function handleSubmitForm(event){
     await axios.post(`${URL_Endpoint}/api/user/addUser` , {name,email,password}).then((response) =>{
         alert(response.data.message);
     }).catch((err) =>{
-        if(err.response.data.error == "User is already Existed"){
-            alert(err.response.data.error);
+        if(err.response.data.message == "User already exist"){
+            alert(err.response.data.message);
         }else{
             console.log(err.response);
         }
