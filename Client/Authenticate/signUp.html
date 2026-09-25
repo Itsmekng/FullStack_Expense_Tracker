@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../ExternalStyle//boostrap.css">
+</head>
+<body>
+    <nav class="navbar bg-success py-2">
+        <div class="container-fluid text-white fw-medium fs-4">
+            Expense tracker
+        </div>
+    </nav>
+
+    <form class="container mt-4" onsubmit="handleSubmitForm(event)">
+        <div class="mb-3">
+            <label for="Full_Name" class="form-label">Full Name</label>
+            <input type="text" required class="form-control" id="Full_Name">
+        </div>
+        <div class="mb-3">
+            <label for="Email" class="form-label">Email</label>
+            <input type="email" required class="form-control" id="Email">
+        </div>
+        <div class="mb-3">
+            <label for="Password" class="form-label">Password</label>
+            <input type="password" required class="form-control" id="Password">
+        </div>
+        <button type="submit" class="btn btn-success">Sign up</button>
+    </form>
+</body>
+<script src="index.js"></script>
+</html>
