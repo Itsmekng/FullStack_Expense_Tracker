@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const ApiError = require("../utils/ApiError.js");
 
-const addUser = async (req , res , next) => {
+const createAccount = async (req , res , next) => {
 
     try{
         const {name , email , password} = req.body;
@@ -25,6 +25,28 @@ const addUser = async (req , res , next) => {
     }
 }
 
+const loginAccount = async (req , res , next) =>{
+    try{
+
+        const { email , password } = req.body;
+
+        let user = await User.findOne({where:{ email: email }});
+
+        if(!user){
+            throw new ApiError(404,"User not found");
+        }
+
+        if(!(user.password == password)){
+            throw new ApiError(401,"User not authorized");
+        }
+
+        res.success(null,"login success",200);
+
+    }catch(err){
+        next(err)
+    }
+}
+
 module.exports = {
-    addUser
+    createAccount, loginAccount
 }
