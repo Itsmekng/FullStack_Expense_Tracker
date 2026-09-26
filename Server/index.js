@@ -2,18 +2,19 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const db = require('./db_connection/db.js')
+require('./models')
 
 app.use(express.json());
 app.use(cors());
 
 const userRouter = require('./routes/user.js');
+const expenseRouter = require('./routes/expense.js')
 const responseHandler = require('./middleware/responseHandler.js');
 const errorHandler = require('./middleware/errorHandler.js');
 
 app.use(responseHandler);
-
 app.use("/api/user",userRouter);
-
+app.use('/api/expense',expenseRouter);
 app.use(errorHandler);
 
 db.sync({force: true}).then(() =>{
