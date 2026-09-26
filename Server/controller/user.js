@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const ApiError = require("../utils/ApiError.js");
+const bcrypt = require('bcrypt')
 
 const createAccount = async (req , res , next) => {
 
@@ -16,8 +17,15 @@ const createAccount = async (req , res , next) => {
             throw new ApiError(409,"User already exist");
         }
 
-        await User.create({name,email,password});
-        
+        bcrypt.hash( password , 10, async function (err , hash){
+
+            if(err){
+                return next(new ApiError(500,err.message));
+            }
+
+            await User.create({name,email,password:hash});
+        });
+
         return res.success(null,"User is created",201);
 
     }catch(err){
@@ -36,11 +44,17 @@ const loginAccount = async (req , res , next) =>{
             throw new ApiError(404,"User not found");
         }
 
-        if(!(user.password == password)){
-            throw new ApiError(401,"User not authorized");
-        }
+        bcrypt.compare(password , user.password , function (err , result){
+            if(err){
+                return next(new ApiError(500,err.message));
+            }
 
-        res.success(null,"login success",200);
+            if(result == true){
+                return res.success(null,"login success",200);
+            }else{
+                return next(new ApiError(401,"User not authorized"));
+            }
+        })
 
     }catch(err){
         next(err)
