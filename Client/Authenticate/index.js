@@ -1,6 +1,6 @@
 const URL_Endpoint = "http://localhost:3000";
 
-async function handleSubmitForm(event){
+async function handleSubmitFormForSignUp(event){
     event.preventDefault();
 
     let name = event.target.Full_Name.value;
@@ -16,6 +16,15 @@ async function handleSubmitForm(event){
             console.log(err.response);
         }
     });
+
+    event.target.reset();
+}
+
+async function handleSubmitFormForSignIn(event){
+    event.preventDefault();
+
+    let email = event.target.Email.value;
+    let password = event.target.Password.value;
 
     event.target.reset();
 }

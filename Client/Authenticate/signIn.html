@@ -12,12 +12,9 @@
             Expense tracker
         </div>
     </nav>
-    <form class="container mt-4" onsubmit="handleSubmitFormForSignUp(event)">
-        <div class="fs-3 fw-medium my-4">Create New Account</div>
-        <div class="mb-3">
-            <label for="Full_Name" class="form-label">Full Name</label>
-            <input type="text" required class="form-control" id="Full_Name">
-        </div>
+    <div></div>
+    <form class="container mt-4" onsubmit="handleSubmitFormForSignIn(event)">
+        <div class="fs-3 fw-medium my-4">Sign in with existing account</div>
         <div class="mb-3">
             <label for="Email" class="form-label">Email</label>
             <input type="email" required class="form-control" id="Email">
@@ -27,9 +24,9 @@
             <input type="password" required class="form-control" id="Password">
         </div>
         <div class="mb-3">
-            <a class="text-decoration-none" href="./signIn.html">Already have an account login here</a>
+            <a class="text-decoration-none" href="./signUp.html">Don't have an account , create here</a>
         </div>
-        <button type="submit" class="btn btn-success">Sign up</button>
+        <button type="submit" class="btn btn-success">Sign in</button>
     </form>
 </body>
 <script src="index.js"></script>
