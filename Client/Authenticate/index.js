@@ -8,7 +8,9 @@ async function handleSubmitFormForSignUp(event){
     let password = event.target.Password.value;
 
     await axios.post(`${URL_Endpoint}/api/user/createAccount` , {name,email,password}).then((response) =>{
+        localStorage.setItem('token',response.data.data);
         alert(response.data.message);
+        window.location.href = 'http://127.0.0.1:5500/Client/index.html'
     }).catch((err) =>{
         if(err.response.data.message == "User already exist"){
             alert(err.response.data.message);
@@ -27,7 +29,9 @@ async function handleSubmitFormForSignIn(event){
     let password = event.target.Password.value;
 
     await axios.post(`${URL_Endpoint}/api/user/loginAccount` , {email,password}).then((response) =>{
+        localStorage.setItem('token',response.data.data);
         alert(response.data.message);
+        window.location.href = 'http://127.0.0.1:5500/Client/index.html'
     }).catch((err) =>{
         if(err.response.data.message == "User not found" || err.response.data.message == "User not authorized"){
             alert(err.response.data.message);

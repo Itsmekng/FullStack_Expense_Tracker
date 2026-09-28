@@ -5,10 +5,10 @@ const addExpense = async( req , res , next) => {
     try{
         const {Amount , Description , Category} = req.body;
 
-        const expense = await Expenses.create({Amount,Description,Category})
+        const expense = await Expenses.create({Amount,Description,Category,UserId:req.userId});
 
         if(!expense){
-            throw new ApiError(500,"Expense not add")
+            throw new ApiError(500,"Expense not add");
         }
 
         return res.success(expense,"Expense is added",201);
@@ -24,7 +24,8 @@ const deleteExpense = async (req , res , next) => {
         const id = req.params.id;
 
         const expense = await Expenses.destroy({where:{
-            id
+            id,
+            UserId:req.userId
         }});
 
         if(!expense){
@@ -41,7 +42,9 @@ const deleteExpense = async (req , res , next) => {
 const getAllExpense = async(req , res , next) => {
     try{
 
-        const expense = await Expenses.findAll();
+        const expense = await Expenses.findAll({where:{
+            UserId:req.userId
+        }});
 
         if(!expense[0]){
             throw new ApiError(404,"Expense not found");
