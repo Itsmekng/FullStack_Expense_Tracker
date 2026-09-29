@@ -59,3 +59,43 @@ async function displayAllExpense(){
         console.log(err.message);
     })
 }
+
+async function goPremium(event){
+    try{
+        event.preventDefault();
+
+        const submitButton = event.target.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        
+        let customerNumber = event.target.customerNumber.value;
+    
+        let response = await axios.post(`${URL_Endpoint}/api/premuim/goPremium`,{customerNumber},{headers:{'Authorization': localStorage.getItem('token')}});
+        const cashfree = Cashfree({
+            mode: "sandbox",
+        });
+
+        let orderId = response.data.data.order_id;
+
+        let checkoutOptions = {
+            paymentSessionId: response.data.data.payment_session_id,
+            redirectTarget: "_modal",
+        };
+        let result = await cashfree.checkout(checkoutOptions);
+  
+        let paymentData = {
+            result,
+            orderId
+        }
+    
+        let successMessage = await axios.post(`${URL_Endpoint}/api/premuim/paymentSuccess`,{paymentData},{headers:{'Authorization': localStorage.getItem('token')}});
+
+        console.log(successMessage);
+
+        submitButton.disabled = false;
+        
+    }catch(err){
+        submitButton.disabled = true;
+        console.log(err)
+    }
+
+}

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense tracker app</title>
     <link rel="stylesheet" href="./External_cdn//boostrap.css">
+    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+    <script src="./External_cdn/boostrap.js"></script>
 </head>
 <body>
     <nav class="navbar bg-success py-2">
@@ -32,9 +34,44 @@
             </select>
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Go Premium
+        </button>
     </form>
     <ul class="list-group container mt-4 row-gap-3">
     </ul>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">You are one step ahead from premium plan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form onsubmit="goPremium(event)">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="customerNumber" class="form-label">Customer Number</label>
+                        <input type="number" required class="form-control" id="customerNumber">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Amount" class="form-label">Amount</label>
+                        <input type="text" disabled value="30.00 INR" class="form-control" id="Amount">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Tap to Pay</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="index.js" ></script>
 <script src="./External_cdn//axios.js"></script>

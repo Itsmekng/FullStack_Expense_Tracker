@@ -11,10 +11,12 @@ const userRouter = require('./routes/user.js');
 const expenseRouter = require('./routes/expense.js')
 const responseHandler = require('./middleware/responseHandler.js');
 const errorHandler = require('./middleware/errorHandler.js');
+const premiumRouter = require('./routes/goPremium.js')
 
 app.use(responseHandler);
 app.use("/api/user",userRouter);
 app.use('/api/expense',expenseRouter);
+app.use('/api/premuim',premiumRouter);
 app.use(errorHandler);
 
 db.sync({force: true}).then(() =>{
