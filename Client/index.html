@@ -10,8 +10,11 @@
 </head>
 <body>
     <nav class="navbar bg-success py-2">
-        <div class="container-fluid text-white fw-medium fs-4">
+        <div class="container-fluid text-white fw-medium fs-4 pe-3">
             Expense tracker
+            <a id="goToDashboard" href="./Dashboard/pages/leaderboard.html">
+                <img height="35px" src="./public/icons/performance.png" alt="">
+            </a>
         </div>
     </nav>
     <form class="container mt-4" onsubmit="handleSubmitForm(event)">
@@ -34,7 +37,7 @@
             </select>
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
-        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        <button type="button" id="goPremium" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Go Premium
         </button>
     </form>

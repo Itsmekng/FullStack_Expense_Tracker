@@ -51,6 +51,19 @@ async function deleteExpense(event){
 }
 
 async function displayAllExpense(){
+    await axios.get(`${URL_Endpoint}/api/premuim/checkPlan`,{headers:{ 'Authorization':localStorage.getItem('token')}}).then((response) => {
+        if(response.data.message == "User has premium plan"){
+            let button = document.getElementById('goPremium');
+            button.classList.add('d-none');
+        }
+    }).catch((err) =>{
+        console.log(err)
+        if(err.response.data.message == "User has no premium plan"){
+            let aTag = document.getElementById('goToDashboard');
+            aTag.classList.add('d-none');
+        }
+    })
+    
     await axios.get(`${URL_Endpoint}/api/expense/getAllExpense`,{headers: { 'Authorization':localStorage.getItem('token')}}).then((response) =>{
         for(let i = 0; i < response.data.data.length; i++){
             displayExpense(response.data.data[i])
@@ -58,6 +71,7 @@ async function displayAllExpense(){
     }).catch((err) =>{
         console.log(err.message);
     })
+
 }
 
 async function goPremium(event){

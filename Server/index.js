@@ -19,7 +19,7 @@ app.use('/api/expense',expenseRouter);
 app.use('/api/premuim',premiumRouter);
 app.use(errorHandler);
 
-db.sync({force: true}).then(() =>{
+db.sync().then(() =>{
     const port = 3000;
     app.listen(port , () =>{
         console.log("Server is listen in port:", port)
