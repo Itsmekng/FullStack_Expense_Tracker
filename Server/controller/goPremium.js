@@ -98,7 +98,7 @@ const getAllExpenses = async (req , res , next) => {
                     include: [
                         {
                             model: User,
-                            attributes: ["id", "name", "email"]
+                            attributes: ["name"]
                         }
                     ],
                     group: ["Expenses.UserId", "User.id"]
