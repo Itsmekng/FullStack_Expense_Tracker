@@ -21,8 +21,8 @@ function addExpenseData(data) {
     let tr = document.createElement('tr');
 
     tr.innerHTML = `<tr>
-                        <td>${data.User.name}</td>
-                        <td>${data.totalAmount}</td>
+                        <td>${data.name}</td>
+                        <td>${data.totalExpense}</td>
                     </tr>`
     
     tbody.appendChild(tr);

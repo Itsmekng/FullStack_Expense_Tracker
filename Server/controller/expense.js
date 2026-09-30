@@ -1,4 +1,4 @@
-const { Expenses } = require("../models");
+const { Expenses, User } = require("../models");
 const ApiError = require("../utils/ApiError");
 
 const addExpense = async( req , res , next) => {
@@ -10,6 +10,15 @@ const addExpense = async( req , res , next) => {
         if(!expense){
             throw new ApiError(500,"Expense not add");
         }
+
+        let user = await User.findByPk(req.userId);
+        
+        if(!user){
+            throw new ApiError(500,"User not found");
+        }
+
+        user.totalExpense = user.totalExpense + Number(Amount);
+        user.save();
 
         return res.success(expense,"Expense is added",201);
 

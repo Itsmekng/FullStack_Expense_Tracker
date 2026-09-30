@@ -75,8 +75,10 @@ const checkPlan = async(req , res , next) => {
     try{
         const UserId = req.userId;
         
-        const premiumPlan = await PaymentDetails.findByPk(UserId);
-        
+        const premiumPlan = await PaymentDetails.findAll({where:{
+            UserId
+        }});
+
         if(!premiumPlan){
             throw new ApiError(404,"User has no premium plan")
         }
@@ -84,25 +86,16 @@ const checkPlan = async(req , res , next) => {
         return res.success(null,"User has premium plan",200);    
 
     }catch(err){
-        next(err)
+        next(err);
     }
 }
 
 const getAllExpenses = async (req , res , next) => {
     try{
-        const data = await Expenses.findAll({
-                    attributes: [
-                        "UserId",
-                        [fn("SUM", col("Amount")), "totalAmount"]
-                    ],
-                    include: [
-                        {
-                            model: User,
-                            attributes: ["name"]
-                        }
-                    ],
-                    group: ["Expenses.UserId", "User.id"]
-        });
+        const data = await User.findAll({
+            attributes:[ 'name' , 'totalExpense' ],
+            order: [[ 'totalExpense','DESC']]
+        })
 
         if(!data[0]){
             throw new ApiError(500,"No data found");
