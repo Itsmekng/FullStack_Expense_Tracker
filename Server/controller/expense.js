@@ -1,5 +1,7 @@
 const { Expenses, User } = require("../models");
 const ApiError = require("../utils/ApiError");
+const getAiResponse = require("../services/gemini.js");
+
 
 const addExpense = async( req , res , next) => {
     try{
@@ -66,6 +68,44 @@ const getAllExpense = async(req , res , next) => {
     }
 }
 
+const askAI = async (req , res , next) => {
+
+    try{
+        const { description } = req.body;
+
+        const prompt = `
+            You are an expense categorization assistant.
+
+            Based on the expense description below, suggest 3 to 4 relevant expense categories.
+
+            Expense description:
+            "${description}"
+
+            Rules:
+            - Return exactly 3 or 4 categories.
+            - Categories must be short and suitable for an expense tracker.
+            - Return ONLY a valid JSON array of strings.
+            - Do not include markdown.
+            - Do not include explanations.
+            - Do not include any text outside the JSON array.
+
+            Example:
+            ["Food", "Snacks", "Sweets", "Groceries"]
+        `;
+
+        const response = await getAiResponse(prompt);
+
+        if(!response?.output_text){
+            throw new ApiError(500,"Something went wrong !!!");
+        }
+    
+        return res.success(response.output_text,"get category",200);
+
+    }catch(err){
+        next(err);
+    }
+}
+
 module.exports = {
-    addExpense , deleteExpense , getAllExpense
+    addExpense , deleteExpense , getAllExpense , askAI
 }

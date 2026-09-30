@@ -113,3 +113,41 @@ async function goPremium(event){
     }
 
 }
+
+async function AskAI(){
+
+    const description = document.getElementById('ExpenseDesc').value;
+
+    if(description == ""){
+        alert("Please fill out description");
+        return
+    }
+
+    let button = document.getElementById('basic-addon2');
+    button.disabled = true
+
+    await axios.post(`${URL_Endpoint}/api/expense/askAI`,{description},{headers:{'Authorization': localStorage.getItem('token')}}).then((response) =>{
+        AIcategory(response.data.data);
+    }).catch((err) =>{
+        console.log(err);
+    })
+    button.disabled = false
+    return
+}
+
+function AIcategory(data){
+
+    data = JSON.parse(data);
+
+    let select = document.getElementById('ExpenseCategory');
+    select.innerHTML = "";
+    for(let i = 0; i < data.length; i++){
+        let option = document.createElement('option');
+
+        option.value = data[i];
+        option.innerHTML = data[i];
+
+        select.appendChild(option);
+    }
+
+}

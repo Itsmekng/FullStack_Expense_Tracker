@@ -27,14 +27,15 @@
             <label for="ExpenseDesc" class="form-label">Expense Desciption</label>
             <input type="text" required class="form-control" id="ExpenseDesc">
         </div>
-        <div class="mb-3">
-            <label for="ExpenseCategory" class="form-label">Expense Category</label>
+        <label for="ExpenseCategory" class="form-label">Expense Category</label>
+        <div class="input-group mb-3">
             <select class="form-select" id="ExpenseCategory">
                 <option selected>Select category</option>
                 <option value="Movie">Movie</option>
                 <option value="Game">Game</option>
                 <option value="Book">Book</option>
             </select>
+            <button onclick="AskAI()" type="button" class="input-group-text btn btn-outline-danger" id="basic-addon2">Ask AI</button>
         </div>
         <button type="submit" class="btn btn-success">Submit</button>
         <button type="button" id="goPremium" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
