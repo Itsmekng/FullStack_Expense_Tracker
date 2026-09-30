@@ -1,52 +1,69 @@
 const { Expenses, User } = require("../models");
 const ApiError = require("../utils/ApiError");
 const getAiResponse = require("../services/gemini.js");
-
+const sequelize = require('../db_connection/db.js');
 
 const addExpense = async( req , res , next) => {
+    const t = await sequelize.transaction();
     try{
         const {Amount , Description , Category} = req.body;
 
-        const expense = await Expenses.create({Amount,Description,Category,UserId:req.userId});
+        const expense = await Expenses.create({Amount,Description,Category,UserId:req.userId},{transaction: t});
 
         if(!expense){
             throw new ApiError(500,"Expense not add");
         }
 
-        let user = await User.findByPk(req.userId);
+        let user = await User.findByPk(req.userId,{transaction: t});
         
         if(!user){
             throw new ApiError(500,"User not found");
         }
 
         user.totalExpense = user.totalExpense + Number(Amount);
-        user.save();
+        await user.save({transaction: t});
+
+        await t.commit();
 
         return res.success(expense,"Expense is added",201);
 
     }catch(err){
+        await t.rollback();
         next(err)
     }
 }
 
 const deleteExpense = async (req , res , next) => {
+    const t = await sequelize.transaction();
     try{
 
         const id = req.params.id;
 
-        const expense = await Expenses.destroy({where:{
-            id,
-            UserId:req.userId
-        }});
+        const expense = await Expenses.findOne({
+            where: {
+                id,
+                UserId: req.userId
+            }
+        },{transaction: t});
 
-        if(!expense){
-            throw new ApiError(404,"Expense not found");
+        if (!expense) {
+            throw new ApiError(404, "Expense not found");
         }
 
-        return res.success(null,"Expense is deleted",200);
+        const user = await User.findByPk(req.userId,{transaction: t});
+
+        user.totalExpense = user.totalExpense - expense.Amount;
+
+        await user.save({transaction: t});
+        await expense.destroy({transaction: t});
+
+        await t.commit();
+
+        return res.success(null, "Expense is deleted", 200);
 
     }catch(err){
-        next(err)
+        await t.rollback();
+        next(err);
     }
 }
 

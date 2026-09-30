@@ -1,6 +1,7 @@
 const { Sequelize , DataTypes } = require('sequelize');
 const sequelize = require('../db_connection/db.js');
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const User = sequelize.define("User" , {
     id:{
@@ -31,11 +32,11 @@ const User = sequelize.define("User" , {
 })
 
 const createToken = (UserId,UserName) => {
-    return jwt.sign({ UserId , UserName }, "64498117-7633-4624-b659-99493381a58d");
+    return jwt.sign({ UserId , UserName }, process.env.JWTTOKEN);
 }
 
 const compareToken = (token) => {
-   return jwt.verify(token, '64498117-7633-4624-b659-99493381a58d');
+   return jwt.verify(token, process.env.JWTTOKEN);
 }
 
 module.exports = {User , createToken , compareToken };

@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const db = require('./db_connection/db.js');
-require('./models')
+require('dotenv').config();
+require('./models');
 
 app.use(express.json());
 app.use(cors());
@@ -19,10 +20,9 @@ app.use('/api/expense',expenseRouter);
 app.use('/api/premuim',premiumRouter);
 app.use(errorHandler);
 
-db.sync().then(() =>{
-    const port = 3000;
-    app.listen(port , () =>{
-        console.log("Server is listen in port:", port)
+db.sync({force:true}).then(() =>{
+    app.listen(process.env.PORT , () =>{
+        console.log("Server is listen in port:", process.env.PORT)
     });
 }).catch((err) =>{
     console.log(err.message)

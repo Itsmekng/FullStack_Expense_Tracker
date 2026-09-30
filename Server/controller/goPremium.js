@@ -2,8 +2,6 @@ const createOrder = require('../services/cashFree.js');
 const { v4 } = require('uuid');
 const ApiError = require('../utils/ApiError.js');
 const PaymentDetails = require('../models/paymentDetails.js');
-const { where , fn, col } = require('sequelize');
-const Expenses = require('../models/expense.js');
 const { User } = require('../models/user.js');
 
 const goPremium = async (req , res , next) =>{
@@ -79,7 +77,7 @@ const checkPlan = async(req , res , next) => {
             UserId
         }});
 
-        if(!premiumPlan){
+        if(!premiumPlan[0]){
             throw new ApiError(404,"User has no premium plan")
         }
         

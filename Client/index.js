@@ -131,6 +131,7 @@ async function AskAI(){
     }).catch((err) =>{
         console.log(err);
     })
+    
     button.disabled = false
     return
 }
