@@ -9,15 +9,17 @@ app.use(express.json());
 app.use(cors());
 
 const userRouter = require('./routes/user.js');
-const expenseRouter = require('./routes/expense.js')
+const expenseRouter = require('./routes/expense.js');
 const responseHandler = require('./middleware/responseHandler.js');
 const errorHandler = require('./middleware/errorHandler.js');
-const premiumRouter = require('./routes/goPremium.js')
+const premiumRouter = require('./routes/goPremium.js');
+const sendEmailROuter = require('./routes/sendEmail.js')
 
 app.use(responseHandler);
 app.use("/api/user",userRouter);
 app.use('/api/expense',expenseRouter);
 app.use('/api/premuim',premiumRouter);
+app.use('/api/sendemail',sendEmailROuter);
 app.use(errorHandler);
 
 db.sync({force:true}).then(() =>{

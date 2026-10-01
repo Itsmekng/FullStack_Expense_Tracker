@@ -42,3 +42,20 @@ async function handleSubmitFormForSignIn(event){
 
     event.target.reset();
 }
+
+function forgetPassword(event) {
+    
+    event.preventDefault();
+
+    let userEmail = event.target.forgetEmail.value;
+
+    axios.post(`${URL_Endpoint}/api/sendemail/password/forgotpassword`,{userEmail}).then((response) => {
+        alert(response.data.message);
+        const modalElement = document.getElementById("staticBackdrop");
+        const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+        modal.hide();
+    }).catch((err) => {
+        console.log(err);
+    })
+
+}

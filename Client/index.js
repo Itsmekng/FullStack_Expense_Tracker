@@ -101,11 +101,13 @@ async function goPremium(event){
             orderId
         }
     
-        let successMessage = await axios.post(`${URL_Endpoint}/api/premuim/paymentSuccess`,{paymentData},{headers:{'Authorization': localStorage.getItem('token')}});
-
-        console.log(successMessage);
+        await axios.post(`${URL_Endpoint}/api/premuim/paymentSuccess`,{paymentData},{headers:{'Authorization': localStorage.getItem('token')}});
 
         submitButton.disabled = false;
+
+        const modalElement = document.getElementById("staticBackdrop");
+        const modal = bootstrap.Modal.getOrCreateInstance(modalElement);
+        modal.hide();
         
     }catch(err){
         submitButton.disabled = true;

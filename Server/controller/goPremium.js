@@ -74,7 +74,8 @@ const checkPlan = async(req , res , next) => {
         const UserId = req.userId;
         
         const premiumPlan = await PaymentDetails.findAll({where:{
-            UserId
+            UserId,
+            paymentStatus:"Success"
         }});
 
         if(!premiumPlan[0]){

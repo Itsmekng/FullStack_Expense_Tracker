@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../External_cdn/boostrap.css">
+    <link rel="stylesheet" href="../External_cdn/boostrap.js">
 </head>
 <body>
     <nav class="navbar bg-success py-2">
@@ -26,8 +27,31 @@
             <a class="text-decoration-none" href="./signUp.html">Don't have an account , create here</a>
         </div>
         <button type="submit" class="btn btn-success">Sign in</button>
+        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Forget Password</button>
     </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Forget Email</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="forgetPassword(event)">
+                    <div class="mb-3">
+                        <label for="forgetEmail" class="form-label">Email address</label>
+                        <input type="email" required class="form-control" id="forgetEmail">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
 </body>
 <script src="index.js"></script>
 <script src="../External_cdn/axios.js"></script>
+<script src="../External_cdn/boostrap.js"></script>
 </html>
