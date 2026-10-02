@@ -10,7 +10,7 @@ const getAiResponse = async (description) => {
             "input": description
         });
     }catch(err){
-        console.log(err);
+        throw new Error(`Failed to get AI response: ${err.message}`);
     }
 }
 

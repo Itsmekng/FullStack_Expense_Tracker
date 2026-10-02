@@ -23,7 +23,7 @@ async function createOrder(orderAmount,orderId,customerId,customerNumber,orderEx
         let response = await cashfree.PGCreateOrder(request);
         return response
     }catch(err){
-        console.log(err)
+        throw new Error(`Failed to create order: ${err.message}`);
     }
 }
 
