@@ -3,6 +3,7 @@ const { v4 } = require('uuid');
 const ApiError = require('../utils/ApiError.js');
 const PaymentDetails = require('../models/paymentDetails.js');
 const { User } = require('../models/user.js');
+const Expenses = require('../models/expense.js');
 
 const goPremium = async (req , res , next) =>{
     try{
@@ -91,10 +92,7 @@ const checkPlan = async(req , res , next) => {
 
 const getAllExpenses = async (req , res , next) => {
     try{
-        const data = await User.findAll({
-            attributes:[ 'name' , 'totalExpense' ],
-            order: [[ 'totalExpense','DESC']]
-        })
+        const data = await User.findAll();
 
         if(!data[0]){
             throw new ApiError(500,"No data found");
@@ -107,6 +105,38 @@ const getAllExpenses = async (req , res , next) => {
     }
 }
 
+const getMyExpense = async (req ,res ,next) => {
+    try{
+        const { length, start } = req.query;
+    
+        const data = await Expenses.findAll({
+            attributes:[ 'Amount','Category','Description','createdAt' ],
+            limit:Number(length),
+            offset:Number(start),
+            order: [['createdAt', 'DESC']]
+        });
+    
+        const recordsTotal = await Expenses.count();
+    
+        const result = data.map( expense => [
+            expense.createdAt.toLocaleDateString('en-US'),
+            expense.Category,
+            expense.Description,
+            expense.Amount
+        ]);
+    
+        return res.json({
+            data:result,
+            recordsTotal:recordsTotal,
+            recordsFiltered:recordsTotal
+        });
+    }catch(err){
+        next(err);
+    }
+}
+
+
+
 module.exports = {
-    goPremium , paymentSuccess , checkPlan , getAllExpenses
+    goPremium , paymentSuccess , checkPlan , getAllExpenses , getMyExpense
 };
