@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/Client/External_cdn/boostrap.css">
+    <link rel="stylesheet" href="/Client//External_cdn/jquery.css">
+    <link rel="stylesheet" href="/Client//External_cdn/jqueryStyle.css">
+    <link rel="stylesheet" href="/Client//External_cdn/jqueryStyle2.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/4.1.2/css/buttons.dataTables.min.css">
+</head>
+<body>
+    <nav class="navbar bg-success fixed-top">
+  <div class="container-fluid">
+    <div class="text-white fw-medium fs-4 pe-3">Expense Tracker</div>
+    <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <img height="35px" src="/Client//public/icons/menu.png" alt="">
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Dashboard</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link fs-4" aria-current="page" href="./leaderboard.html">Leaderboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active fs-4" aria-current="page" href="#">Expense Report</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fs-4 " aria-current="page" href="/Client/index.html">All Expense</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="fs-4 fw-normal" style="justify-self: center; margin-top: 80px;">Day To Day Expenses</div>
+<div class="fs-6 fw-normal my-2" style="justify-self: center;">March 2021</div>
+<div class="container">
+  <table id="example" class="display mt-4 table table-striped">
+      <thead>
+        <tr>
+          <th class="bg-success text-white">Date</th>
+          <th class="bg-success text-white">Description</th>
+          <th class="bg-success text-white">Category</th>
+          <th class="bg-success text-white">Expense</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Tiger Nixon</td>
+          <td>System Architect</td>
+          <td>Edinburgh</td>
+          <td>61</td>
+        </tr>
+        <tr>
+          <td>Garrett Winters</td>
+          <td>Accountant</td>
+          <td>Tokyo</td>
+          <td>63</td>
+        </tr>
+        <tr>
+          <td>Ashton Cox</td>
+          <td>Junior Technical Author</td>
+          <td>San Francisco</td>
+          <td>66</td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+<hr>
+<div class="fs-5 fw-normal my-2" style="justify-self: center;">Yearly Reports</div>
+<div class="container">
+  <table id="example" class="display mt-4 table table-striped mt-4">
+		<thead>
+			<tr>
+				<th class="bg-success text-white">Month</th>
+				<th class="bg-success text-white">Expense</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Tiger Nixon</td>
+				<td>System Architect</td>
+			</tr>
+			<tr>
+				<td>Garrett Winters</td>
+				<td>Accountant</td>
+			</tr>
+			<tr>
+				<td>Ashton Cox</td>
+				<td>Junior Technical Author</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+<script src="/Client/External_cdn/axios.js"></script>
+<script src="/Client/External_cdn/boostrap.js"></script>
+<script src="https://cdn.datatables.net/3.1.3/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/4.1.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/4.1.2/js/buttons.dataTables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.3.11/build/pdfmake.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdfmake@0.3.11/build/vfs_fonts.js"></script>
+<script>
+    new DataTable('#example',{
+        searching: false,
+        layout: {
+          topStart: {
+            buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+          }
+        }
+    });
+</script>
+</html>
