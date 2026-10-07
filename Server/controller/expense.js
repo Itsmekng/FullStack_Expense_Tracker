@@ -6,9 +6,9 @@ const sequelize = require('../db_connection/db.js');
 const addExpense = async( req , res , next) => {
     const t = await sequelize.transaction();
     try{
-        const {Amount , Description , Category} = req.body;
+        const {Amount , Description , Category , Notes} = req.body;
 
-        const expense = await Expenses.create({Amount,Description,Category,UserId:req.userId},{transaction: t});
+        const expense = await Expenses.create({Amount,Description,Category,UserId:req.userId,Notes},{transaction: t});
 
         if(!expense){
             throw new ApiError(400,"Expense not add");

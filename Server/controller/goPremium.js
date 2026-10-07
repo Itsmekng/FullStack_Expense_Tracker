@@ -96,7 +96,7 @@ const getAllExpenses = async (req , res , next) => {
         let data = await User.findAll({attributes: [ 'name' ,'totalExpense' ]});
 
         data = data.map((e) => [ e.name,e.totalExpense ])
-        console.log("hello")
+
         if(!data[0]){
             return res.status(404).json({
                 data,
@@ -132,7 +132,7 @@ const getMyExpense = async (req ,res ,next) => {
                     },
                     UserId:req.userId
                 },
-                attributes:[ 'Amount','Category','Description','createdAt','id' ],
+                attributes:[ 'Amount','Category','Description','createdAt', 'Notes','id' ],
                 limit:Number(length),
                 offset:Number(start),
                 order: [['createdAt', 'DESC']]
@@ -150,7 +150,7 @@ const getMyExpense = async (req ,res ,next) => {
         }else{
             data = await Expenses.findAll({
                 where:{UserId:req.userId},
-                attributes:[ 'Amount','Category','Description','createdAt','id' ],
+                attributes:[ 'Amount','Category','Description','createdAt','Notes','id' ],
                 limit:Number(length),
                 offset:Number(start),
                 order: [['createdAt', 'DESC']]
@@ -169,6 +169,7 @@ const getMyExpense = async (req ,res ,next) => {
             expense.Category,
             expense.Description,
             expense.Amount,
+            expense.Notes,
             `<button data-id="${expense.id}" onclick="deleteExpense(event)" class="btn btn-outline-danger">Delete</button>`
         ]);
     

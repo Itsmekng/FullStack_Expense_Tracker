@@ -3,7 +3,7 @@ const sequelize = require('../db_connection/db.js');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const User = sequelize.define("User" , {
+const User = sequelize.define("Users" , {
     id:{
         type: DataTypes.INTEGER,
         allowNull: false,

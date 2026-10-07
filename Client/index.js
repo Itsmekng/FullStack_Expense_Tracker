@@ -8,8 +8,9 @@ async function handleSubmitForm(event){
     let Amount = event.target.ExpenseAmount.value;
     let Description = event.target.ExpenseDesc.value;
     let Category = event.target.ExpenseCategory.value;
+    let Notes = event.target.ExpenseNotes.value;
 
-    await axios.post(`${URL_Endpoint}/api/expense/addExpense`,{Amount, Description,Category},{headers: { 'Authorization': localStorage.getItem('token')}}).then((response) =>{
+    await axios.post(`${URL_Endpoint}/api/expense/addExpense`,{Amount, Description,Category,Notes},{headers: { 'Authorization': localStorage.getItem('token')}}).then((response) =>{
         displayExpense(response.data.data);
     }).catch((err) =>{
         console.log(err)
@@ -179,6 +180,7 @@ function displayExpense(data){
     tr.innerHTML = `<td role="cell" class="sorting_1">${data.Amount}</td>
                     <td role="cell">${data.Category}</td>
                     <td role="cell">${data.Description}</td>
+                    <td role="cell">${data.Notes}</td>
                     <td class="dt-type-numeric" role="cell">${data.createdAt}</td>
                     <td role="cell">
                         <button data-id="${data.id}" onclick="deleteExpense(event)" class="btn btn-outline-danger">Delete</button>
