@@ -47,9 +47,6 @@ const forgetPasswordTemplate = (token) => {
                                                             </td>
                                                         </tr>
                                                     </table>
-                                                    <p style="font-size:14px; line-height:1.6; color:#666666;">
-                                                        If you have any questions, feel free to contact our support team.
-                                                    </p>
                                                 </td>
                                             </tr>
                                             <!-- Footer -->

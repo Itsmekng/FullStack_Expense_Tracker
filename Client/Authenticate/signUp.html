@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../External_cdn/boostrap.css">
+    <link rel="stylesheet" href="../External_cdn/css/bootstrap_v5.3.8.css">
 </head>
 <body>
     <nav class="navbar bg-success py-2">
@@ -24,7 +24,7 @@
         </div>
         <div class="mb-3">
             <label for="Password" class="form-label">Password</label>
-            <input type="password" required class="form-control" id="Password">
+            <input type="password" minlength="6" required class="form-control" id="Password">
         </div>
         <div class="mb-3">
             <a class="text-decoration-none" href="./signIn.html">Already have an account login here</a>
@@ -33,5 +33,6 @@
     </form>
 </body>
 <script src="index.js"></script>
-<script src="../External_cdn/axios.js"></script>
+<script src="/Client/constant/constant.js" ></script>
+<script src="../External_cdn/js/axios_v1.20.0.js"></script>
 </html>

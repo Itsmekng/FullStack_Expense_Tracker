@@ -11,13 +11,13 @@ const addExpense = async( req , res , next) => {
         const expense = await Expenses.create({Amount,Description,Category,UserId:req.userId},{transaction: t});
 
         if(!expense){
-            throw new ApiError(500,"Expense not add");
+            throw new ApiError(400,"Expense not add");
         }
 
         let user = await User.findByPk(req.userId,{transaction: t});
         
         if(!user){
-            throw new ApiError(500,"User not found");
+            throw new ApiError(404,"User not found");
         }
 
         user.totalExpense = user.totalExpense + Number(Amount);
@@ -116,7 +116,7 @@ const askAI = async (req , res , next) => {
             throw new ApiError(500,"Something went wrong !!!");
         }
     
-        return res.success(response.output_text,"get category",200);
+        return res.success(response.output_text,"Get category",200);
 
     }catch(err){
         next(err);

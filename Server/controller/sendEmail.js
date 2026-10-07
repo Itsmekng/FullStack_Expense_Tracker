@@ -17,7 +17,10 @@ const forgetPassword = async (req , res , next) => {
         const token = v4();
 
         const user = await User.findOne({
-            email: userEmail
+            attributes: ['email','id'],
+            where:{
+                email: userEmail
+            }
         },{transaction: t});
 
         if(!user){

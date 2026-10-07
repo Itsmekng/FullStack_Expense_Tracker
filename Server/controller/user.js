@@ -2,6 +2,7 @@ const {User , createToken } = require("../models/user");
 const ApiError = require("../utils/ApiError.js");
 const bcrypt = require('bcrypt');
 
+// For creating users
 const createAccount = async (req , res , next) => {
     try{
         const {name , email , password} = req.body;
@@ -27,6 +28,7 @@ const createAccount = async (req , res , next) => {
     }
 }
 
+// user login
 const loginAccount = async (req , res , next) =>{
     try{
 

@@ -21,13 +21,6 @@ const forgetEmailForm = (id) => {
 
                                         <!-- Header -->
                                         <div class="text-center mb-4">
-                                            <div
-                                                class="bg-success text-white rounded-circle d-inline-flex
-                                                    justify-content-center align-items-center mb-3"
-                                                style="width: 60px; height: 60px;"
-                                            >
-                                                🔒
-                                            </div>
                                             <h3 class="fw-bold mb-2">
                                                 Reset Password
                                             </h3>

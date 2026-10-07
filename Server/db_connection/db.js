@@ -11,6 +11,7 @@ const connection = new Sequelize( 'expense_tracker','root','admin' , {
         console.log("Database is connect !!!")
     }catch(err){
         console.log(err.message);
+        process.exit(1);
     }
 })()
 

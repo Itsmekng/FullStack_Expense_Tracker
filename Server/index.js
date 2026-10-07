@@ -27,10 +27,11 @@ app.use('/api/sendemail',sendEmailROuter);
 app.use('/api/password' ,passwordRouter);
 app.use(errorHandler);
 
-db.sync().then(() =>{
+db.sync({force: true}).then(() =>{
     app.listen(process.env.PORT , () =>{
         console.log("Server is listen in port:", process.env.PORT)
     });
 }).catch((err) =>{
     console.log(err.message)
+    process.exit(1);
 })

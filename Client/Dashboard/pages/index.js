@@ -1,29 +1,35 @@
-if(localStorage.getItem('token') == null){
-    window.location.href = "./Authenticate/signIn.html"
-}
-
-const URL_Endpoint = "http://localhost:3000";
-
 window.addEventListener('load' , displayAllExpense);
 
 async function displayAllExpense() {
-    await axios.get(`${URL_Endpoint}/api/premuim/getAllExpenses`,{headers:{ 'Authorization':localStorage.getItem('token')}}).then((response) => {
-        for(let i = 0; i < response.data.data.length; i++){
-            addExpenseData(response.data.data[i])
+
+    if(localStorage.getItem('token') == null){
+        window.location.href = `${URL_Client}/Client/Authenticate/signIn.html`
+    }
+
+    new DataTable('#example', {
+        ajax: {
+            url: `${URL_Endpoint}/api/premuim/getAllExpenses`,
+            type: 'GET',
+            beforeSend: function (xhr) {
+                const token = localStorage.getItem('token');
+                xhr.setRequestHeader('Authorization', token);
+            }
+        },
+        processing: true,
+        serverSide: true,
+        searching: false,
+        lengthMenu: [5, 10, 25, 50, 100, -1],
+        stateSave: true,
+        drawCallback: function () {
+            const api = this.api();
+            const pageInfo = api.page.info();
+            if (
+                pageInfo.page > pageInfo.pages - 1 &&
+                pageInfo.pages > 0
+            ) {
+                api.page(pageInfo.pages - 1).draw('page');
+            }
         }
-    }).catch((err) => {
-        console.log(err)
     });
 }
 
-function addExpenseData(data) {
-    let tbody = document.getElementsByClassName('tableBody')[0];
-    let tr = document.createElement('tr');
-
-    tr.innerHTML = `<tr>
-                        <td>${data.name}</td>
-                        <td>${data.totalExpense}</td>
-                    </tr>`
-    
-    tbody.appendChild(tr);
-}

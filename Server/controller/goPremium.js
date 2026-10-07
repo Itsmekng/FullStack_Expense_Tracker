@@ -4,6 +4,7 @@ const ApiError = require('../utils/ApiError.js');
 const PaymentDetails = require('../models/paymentDetails.js');
 const { User } = require('../models/user.js');
 const Expenses = require('../models/expense.js');
+const { Op } = require('sequelize');
 
 const goPremium = async (req , res , next) =>{
     try{
@@ -20,7 +21,7 @@ const goPremium = async (req , res , next) =>{
         const response = await createOrder(30.00,orderId,customerId,customerNumber,orderExpiry);
 
         if(!response){
-            throw new ApiError(500,"Payment session is not created");
+            throw new ApiError(400,"Payment session is not created");
         }
 
         await PaymentDetails.create({Amount:30.00,customerNumber,orderId,paymentStatus:"Pending",UserId:req.userId});
@@ -53,7 +54,7 @@ const paymentSuccess = async (req , res , next) =>{
                 }
             })
     
-            throw new ApiError(500,"Payment will be redirected")
+            throw new ApiError(303,"Payment will be redirected")
         }
     
         if(result.paymentDetails){
@@ -92,13 +93,23 @@ const checkPlan = async(req , res , next) => {
 
 const getAllExpenses = async (req , res , next) => {
     try{
-        const data = await User.findAll();
+        let data = await User.findAll({attributes: [ 'name' ,'totalExpense' ]});
 
+        data = data.map((e) => [ e.name,e.totalExpense ])
+        console.log("hello")
         if(!data[0]){
-            throw new ApiError(500,"No data found");
+            return res.status(404).json({
+                data,
+                recordsTotal:0,
+                recordsFiltered:0
+            })
         }
 
-        return res.success(data,"All Expense",200);
+        return res.status(200).json({
+            data,
+            recordsTotal:data.length,
+            recordsFiltered:data.length
+        })
 
     }catch(err){
         next(err);
@@ -107,25 +118,61 @@ const getAllExpenses = async (req , res , next) => {
 
 const getMyExpense = async (req ,res ,next) => {
     try{
-        const { length, start } = req.query;
-    
-        const data = await Expenses.findAll({
-            attributes:[ 'Amount','Category','Description','createdAt' ],
-            limit:Number(length),
-            offset:Number(start),
-            order: [['createdAt', 'DESC']]
-        });
-    
-        const recordsTotal = await Expenses.count();
+        const { length, start , from , to } = req.query;
+
+        let data;
+        let recordsTotal;
+
+        if(from || to){
+            data = await Expenses.findAll({
+                where:{
+                    createdAt:{
+                        [Op.gte]: `${from} 00:00:00`,
+                        [Op.lte]: `${to} 23:59:59`
+                    },
+                    UserId:req.userId
+                },
+                attributes:[ 'Amount','Category','Description','createdAt','id' ],
+                limit:Number(length),
+                offset:Number(start),
+                order: [['createdAt', 'DESC']]
+            });
+
+            recordsTotal = await Expenses.count({
+                where:{
+                    UserId:req.userId,
+                    createdAt:{
+                        [Op.gte]: `${from} 00:00:00`,
+                        [Op.lte]: `${to} 23:59:59`
+                    }
+                }
+            });
+        }else{
+            data = await Expenses.findAll({
+                where:{UserId:req.userId},
+                attributes:[ 'Amount','Category','Description','createdAt','id' ],
+                limit:Number(length),
+                offset:Number(start),
+                order: [['createdAt', 'DESC']]
+            });
+
+            recordsTotal = await Expenses.count({
+                where:{
+                    UserId:req.userId,
+                }
+            });
+        }
+
     
         const result = data.map( expense => [
             expense.createdAt.toLocaleDateString('en-US'),
             expense.Category,
             expense.Description,
-            expense.Amount
+            expense.Amount,
+            `<button data-id="${expense.id}" onclick="deleteExpense(event)" class="btn btn-outline-danger">Delete</button>`
         ]);
     
-        return res.json({
+        return res.status(200).json({
             data:result,
             recordsTotal:recordsTotal,
             recordsFiltered:recordsTotal
@@ -134,8 +181,6 @@ const getMyExpense = async (req ,res ,next) => {
         next(err);
     }
 }
-
-
 
 module.exports = {
     goPremium , paymentSuccess , checkPlan , getAllExpenses , getMyExpense

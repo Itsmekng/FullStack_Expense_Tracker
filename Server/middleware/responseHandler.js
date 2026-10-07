@@ -6,7 +6,6 @@ const responseHandler = (req, res, next) => {
             data
         });
     };
-
     next();
 };
 

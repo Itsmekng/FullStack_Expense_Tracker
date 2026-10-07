@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense tracker app</title>
-    <link rel="stylesheet" href="./External_cdn//boostrap.css">
-    <script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
-    <script src="./External_cdn/boostrap.js"></script>
+    <link rel="stylesheet" href="/Client/External_cdn/css/index.css">
 </head>
 <body>
     <nav class="navbar bg-success py-2">
@@ -42,8 +40,28 @@
         Go Premium
         </button>
     </form>
-    <ul class="list-group container mt-4 row-gap-3">
-    </ul>
+
+    <div class="input-group container mt-4 mb-4">
+        <input type="date" id="from" class="form-control">
+        <input type="date" id="to" class="form-control">
+        <button id="dateFilter" onclick="dateFilter()" class="btn btn-outline-primary">Apply</button>
+    </div>
+
+    <div class="container">
+        <table id="example" class="display mt-4 table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th class="bg-success text-white">createdAt</th>
+                    <th class="bg-success text-white">Category</th>
+                    <th class="bg-success text-white">Description</th>
+                    <th class="bg-success text-white">Amount</th>
+                    <th class="bg-success text-white">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+            </tbody>
+        </table>
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -78,5 +96,5 @@
     </div>
 </body>
 <script src="index.js" ></script>
-<script src="./External_cdn//axios.js"></script>
+<script  src="/Client/External_cdn/js/index.js"></script>
 </html>
