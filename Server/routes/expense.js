@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post("/addExpense" , authenticateUser ,addExpense);
 router.delete("/deleteExpense/:id",authenticateUser ,deleteExpense);
-router.get("/getAllExpense",authenticateUser ,getAllExpense);
+router.get("/getAllExpense" ,getAllExpense);
 router.post("/askAI",askAI);
 
 module.exports = router
