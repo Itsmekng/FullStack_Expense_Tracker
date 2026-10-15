@@ -5,7 +5,6 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
                 echo 'Source code checked out successfully'
             }
         }
@@ -21,7 +20,9 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls -la'
-                sh 'test -f package.json'
+                sh 'test -f Client/package.json'
+                sh 'test -f Server/package.json'
+                echo 'Client and Server package.json files found'
             }
         }
     }
