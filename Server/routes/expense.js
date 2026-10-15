@@ -1,6 +1,6 @@
 const express = require('express');
 const { addExpense , deleteExpense ,getAllExpense , askAI } = require('../controller/expense');
-const authenticateUser = require('../middleware/AuthenticateUser.js');
+const authenticateUser = require('../middleware/authenticateUser.js');
 const router = express.Router();
 
 router.post("/addExpense" , authenticateUser ,addExpense);
