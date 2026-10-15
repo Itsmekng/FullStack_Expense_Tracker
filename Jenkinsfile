@@ -18,11 +18,19 @@ pipeline {
 
         stage('Inspect Project') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
-                sh 'test -f Client/package.json'
+                sh 'ls -la Client'
+                sh 'ls -la Server'
+                sh 'test -d Client'
                 sh 'test -f Server/package.json'
-                echo 'Client and Server package.json files found'
+                echo 'Project structure verified'
+            }
+        }
+
+        stage('Install Backend Dependencies') {
+            steps {
+                dir('Server') {
+                    sh 'npm install'
+                }
             }
         }
     }
