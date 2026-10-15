@@ -18,8 +18,6 @@ pipeline {
 
         stage('Inspect Project') {
             steps {
-                sh 'ls -la Client'
-                sh 'ls -la Server'
                 sh 'test -d Client'
                 sh 'test -f Server/package.json'
                 echo 'Project structure verified'
@@ -29,8 +27,14 @@ pipeline {
         stage('Install Backend Dependencies') {
             steps {
                 dir('Server') {
-                    sh 'npm install'
+                    sh 'npm ci'
                 }
+            }
+        }
+
+        stage('Deploy Backend') {
+            steps {
+                sh 'sudo -u ubuntu /usr/local/bin/deploy-expense-tracker'
             }
         }
     }
