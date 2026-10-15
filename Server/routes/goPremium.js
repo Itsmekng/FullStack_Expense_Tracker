@@ -1,6 +1,6 @@
 const express = require('express');
 const {goPremium ,paymentSuccess, checkPlan, getAllExpenses, getMyExpense}= require('../controller/goPremium.js');
-const authenticateUser = require('../middleware/AuthenticateUser.js');
+const authenticateUser = require('../middleware/authenticateUser.js');
 const router = express.Router();
 
 router.post("/goPremium", authenticateUser,goPremium);
