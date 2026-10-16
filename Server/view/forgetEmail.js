@@ -39,7 +39,7 @@ const forgetPasswordTemplate = (token) => {
                                                     <table cellpadding="0" cellspacing="0" border="0" style="margin:30px 0;">
                                                         <tr>
                                                             <td style="background:#198754; border-radius:5px;">
-                                                                <a href="http://localhost:3000/api/password/resetpassword/${token}" style="display:inline-block; padding:14px 28px;
+                                                                <a href="http://13.210.106.187/api/password/resetpassword/${token}" style="display:inline-block; padding:14px 28px;
                                                                         color:#ffffff; text-decoration:none;
                                                                         font-size:16px; font-weight:bold;">
                                                                     Reset Password

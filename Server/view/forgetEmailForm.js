@@ -31,7 +31,7 @@ const forgetEmailForm = (id) => {
 
                                         <!-- Form -->
                                         <form
-                                            action="http://localhost:3000/api/password/newpassword"
+                                            action="http://13.210.106.187/api/password/newpassword"
                                             method="POST"
                                         >
                                             <!-- Hidden id -->
