@@ -9,7 +9,7 @@ async function handleSubmitFormForSignUp(event){
     await axios.post(`${URL_Endpoint}/api/user/createAccount` , {name,email,password}).then((response) =>{
         localStorage.setItem('token',response.data.data);
         alert(response.data.message);
-        window.location.href = `${URL_Client}/Client/index.html`
+        window.location.href = `${URL_Client}/index.html`
     }).catch((err) =>{
         if(err.response.data.message == "User already exist"){
             alert(err.response.data.message);
@@ -31,7 +31,7 @@ async function handleSubmitFormForSignIn(event){
     await axios.post(`${URL_Endpoint}/api/user/loginAccount` , {email,password}).then((response) =>{
         localStorage.setItem('token',response.data.data);
         alert(response.data.message);
-        window.location.href = `${URL_Client}/Client/index.html`
+        window.location.href = `${URL_Client}/index.html`
     }).catch((err) =>{
         if(err.response.data.message == "User not found" || err.response.data.message == "User not authorized"){
             alert(err.response.data.message);

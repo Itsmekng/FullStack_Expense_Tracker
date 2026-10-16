@@ -23,7 +23,7 @@ async function handleSubmitForm(event){
 async function displayAllExpense(){
 
     if(localStorage.getItem('token') == null){
-        window.location.href = `${URL_Client}/Client/Authenticate/signIn.html`
+        window.location.href = `${URL_Client}/Authenticate/signIn.html`
     }
 
     let isPremium = false

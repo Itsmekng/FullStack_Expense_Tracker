@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
-    <link rel="stylesheet" href="/Client/External_cdn/css/index.css">
+    <link rel="stylesheet" href="/External_cdn/css/index.css">
 </head>
 <body>
   <!-- Navbar Start -->
@@ -12,7 +12,7 @@
     <div class="container-fluid">
       <div class="text-white fw-medium fs-4 pe-3">Expense Tracker</div>
       <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-          <img height="35px" src="/Client//public/icons/menu.png" alt="">
+          <img height="35px" src="//public/icons/menu.png" alt="">
       </button>
       <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
         <div class="offcanvas-header">
@@ -25,10 +25,10 @@
               <a class="nav-link active fs-4" aria-current="page" href="#">Leaderboard</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-4" aria-current="page" onclick="localStorage.removeItem('token')" href="/Client/Authenticate/signIn.html">Log Out</a>
+              <a class="nav-link fs-4" aria-current="page" onclick="localStorage.removeItem('token')" href="/Authenticate/signIn.html">Log Out</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-4 " aria-current="page" href="/Client/index.html">All Expense</a>
+              <a class="nav-link fs-4 " aria-current="page" href="/index.html">All Expense</a>
             </li>
           </ul>
         </div>
@@ -49,5 +49,5 @@
   </div>
 </body>
 <script type="module" src="./index.js"></script>
-<script src="/Client/External_cdn/js/index.js"></script>
+<script src="/External_cdn/js/index.js"></script>
 </html>
